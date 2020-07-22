@@ -97,6 +97,8 @@ const
 
 implementation
 
+{ AttributedString }
+
 procedure AttributedString.SetId(Index: Integer; const AId: WideString);
 begin
   FId := AId;
@@ -108,6 +110,22 @@ begin
   Result := FId_Specified;
 end;
 
+{ UsernameString }
+
+procedure UsernameString.SetType_(Index: Integer;
+  const AWideString: WideString);
+begin
+  FType_ := AWideString;
+  FType__Specified := True;
+end;
+
+function UsernameString.Type__Specified(Index: Integer): boolean;
+begin
+  Result := FType__Specified;
+end;
+
+{ PasswordString }
+
 procedure PasswordString.SetType_(Index: Integer;
   const AWideString: WideString);
 begin
@@ -118,12 +136,6 @@ end;
 function PasswordString.Type__Specified(Index: Integer): boolean;
 begin
   Result := FType__Specified;
-end;
-
-destructor Security.Destroy;
-begin
-  FreeAndNIL(FUserNameToken);
-  inherited Destroy;
 end;
 
 { UsernameTokenType }
@@ -146,16 +158,12 @@ begin
   Result := FId_Specified;
 end;
 
-procedure UsernameString.SetType_(Index: Integer;
-  const AWideString: WideString);
-begin
-  FType_ := AWideString;
-  FType__Specified := True;
-end;
+{ Security }
 
-function UsernameString.Type__Specified(Index: Integer): boolean;
+destructor Security.Destroy;
 begin
-  Result := FType__Specified;
+  FreeAndNil(FUserNameToken);
+  inherited Destroy;
 end;
 
 initialization
